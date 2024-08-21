@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch
+    </title>
+    <style>
+
+        body{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1{
+            text-align: center;
+            margin-top: 150px;
+        }
+        div{
+            border: 1px solid black;
+            border-radius: 50%;
+            padding: 70px 0px;
+            width: 200px;
+            text-align: center;
+            box-shadow: rgba(0, 0, 0, 0.5) 10px 10px 15px;
+            font-size: 18px;
+            margin: 50px auto 30px;
+        }
+
+        button{
+            margin: 10px;
+            width: 100px;
+            padding: 5px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(252, 3, 3 , 0.5);
+            box-shadow: rgba(0, 0, 0, 0.5) 5px 2px 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Timer</h1>
+    
+    <div id="timer">
+        <p>00:00:00</p>
+    </div>
+
+    <button onclick="StartTimer()">Start</button>
+    <button onclick="StopTimer()">Stop</button>
+    <button onclick="ResetTimer()">Reset</button>
+
+    <script>
+        let timerInterval;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+
+        function StartTimer(){
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer , 1000);
+        }
+
+        function StopTimer(){
+            clearInterval(timerInterval);
+        }
+       
+        function ResetTimer(){
+            clearInterval(timerInterval);  
+            seconds = 0;  
+            minutes = 0; 
+            hours = 0;    
+            updateDisplay(); 
+        }
+
+        function updateTimer(){
+            seconds++;
+
+            if(seconds === 60){
+                seconds = 0;
+                minutes++;
+            }
+
+            if(minutes === 60){
+                minutes = 0;
+                hours++;
+            }
+
+            updateDisplay();
+        }
+
+        function updateDisplay(){
+            const formatTime = pad(hours) + ":" + pad(minutes) + ":" + pad(seconds);
+            document.getElementById('timer').innerHTML = formatTime;
+        }
+
+
+
+        function pad(value){
+            return value < 10 ? "0" + value : value;
+        }
+        
+    </script>
+</body>
+</html>
